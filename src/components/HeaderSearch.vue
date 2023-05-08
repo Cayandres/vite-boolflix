@@ -11,6 +11,7 @@
     },
     props:{
       lang : String,
+      query : String,
     }
   }
   </script>
@@ -23,7 +24,7 @@
       <input class="searchInput" 
       type="text" 
       placeholder="Cerca un Film o una Serie tv"
-      v-model="store.titleToSearch"
+      v-model="store.apiParams.query"
       @keydown.enter="$emit('startSearch')">
 
       <span class="searchButton" @click.stop="$emit('startSearch')">Cerca</span>

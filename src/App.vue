@@ -8,33 +8,30 @@ import { store }         from './data/store'
 
 
   export default {
+    name : "App",
     components:{
       HeaderSearch,
       Main,
       Footer,
-      store,
     },
     data(){
       return{
-        name : "appVue"
+        store,
       }
     },
     methods:{
-      getApi(){
-        axios.get(store.apiUrl,{
-          params:{
-            api_key : store.api_key,
-            language : store.language,
-            query : store.titleToSearch
-          }
-        })
+      getApi(type){
+        let apiUrl = store.apiUrl + type;
+
+        axios.get(apiUrl, { params: store.apiParams })
         .then(result => {
-          store.resultApiCall = result.data.results
+          store[type] = result.data.results;
         })
       }
     },
     mounted(){
-      this.getApi()
+      this.getApi('movie')
+      this.getApi('tv')
     }
   }
   </script>
@@ -44,9 +41,12 @@ import { store }         from './data/store'
   
 <div class="appWrapper">
   
-  <HeaderSearch @startSearch="getApi" />
+  <HeaderSearch 
+  @startSearch="getApi('movie'), getApi('tv')" 
+   />
   
-  <Main />
+  <Main v-if="store.movie.length > 0" title="Film" type="movie"/>
+  <Main v-if="store.tv.length > 0" title="Serie TV" type="tv"/>
   
   <Footer />
   

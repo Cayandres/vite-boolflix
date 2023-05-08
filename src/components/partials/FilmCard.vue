@@ -1,16 +1,10 @@
 <script>
   export default {
-    data(){
-      return{
-        name : "FilmCard"
-      }
-    },
+    name : "FilmCard",
+
     props:{
-      imageLink : String,
-      filmTitle : String,
-      originalFilmTitle : String,
-      lang : String,
-      rate : Number
+      card:String,
+      lang: String
     }
   }
   </script>
@@ -19,16 +13,16 @@
 
 
     <div class="card">
-      <img :src="imageLink" alt="error">
+      <img :src="'http://image.tmdb.org/t/p/w342' + card.poster_path" alt="error">
 
       <div class="film-description">
 
-        <h3>{{ filmTitle }}</h3>
-        <h4>{{ originalFilmTitle }}</h4>
+        <h3>{{ card.title || card.name }}</h3>
+        <h4>{{ card.original_name || card.original_title }}</h4>
         <div class="flags-container">
-          <img :src="`/flags/${lang}.png`" :alt="lang">
+          <img :src="`/flags/language-${lang}.svg`" :alt="lang">
         </div>
-        <p>{{ rate }}</p>
+        <p>{{ card.vote_average }}</p>
 
       </div>
 
