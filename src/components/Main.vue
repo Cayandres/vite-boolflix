@@ -29,6 +29,7 @@ import { store }      from '../data/store';
       :key="card.id"
       :card="card"
       :lang="card.original_language"
+      :rating="Math.ceil(card.vote_average/2)" 
       />
     </div>  
   </div>

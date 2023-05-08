@@ -4,7 +4,8 @@
 
     props:{
       card:String,
-      lang: String
+      lang: String,
+      rating: Number,
     }
   }
   </script>
@@ -22,7 +23,8 @@
         <div class="flags-container">
           <img :src="`/flags/language-${lang}.svg`" :alt="lang">
         </div>
-        <p>{{ card.vote_average }}</p>
+        <span v-for="star in rating" :key="star"><i class="fa-solid fa-star"></i></span>
+        <span v-for="starEmpty in (5-rating)" :key="starEmpty"><i class="fa-regular fa-star"></i></span>
 
       </div>
 
@@ -49,6 +51,10 @@
     padding: 10px;
     background-color: white;
     overflow: scroll;
+    .fa-solid.fa-star{
+      color: gold;
+
+    }
 
     img{
       width: 100%;
