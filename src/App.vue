@@ -1,6 +1,7 @@
 <script>
 import HeaderSearch      from './components/HeaderSearch.vue'
 import Main              from './components/Main.vue'
+import MainSearch from './components/MainSearch.vue'
 import Footer            from './components/Footer.vue'
 import axios             from 'axios'
 import { store }         from './data/store'
@@ -11,6 +12,7 @@ import { store }         from './data/store'
     name : "App",
     components:{
       HeaderSearch,
+      MainSearch,
       Main,
       Footer,
     },
@@ -22,7 +24,6 @@ import { store }         from './data/store'
     methods:{
       getApi(type){
         let apiUrl = store.apiUrl + type;
-
         axios.get(apiUrl, { params: store.apiParams })
         .then(result => {
           store[type] = result.data.results;
@@ -41,14 +42,15 @@ import { store }         from './data/store'
   
 <div class="appWrapper">
   
-  <HeaderSearch 
+  <MainSearch  v-if="!store.movie.length" @startSearch="getApi('movie'), getApi('tv')"/>
+  
+  <HeaderSearch v-if="store.movie.length > 0"
   @startSearch="getApi('movie'), getApi('tv')" 
    />
-  
   <Main v-if="store.movie.length > 0" title="Film" type="movie"/>
   <Main v-if="store.tv.length > 0" title="Serie TV" type="tv"/>
   
-  <Footer />
+  <!-- <Footer /> -->
   
 </div>
 

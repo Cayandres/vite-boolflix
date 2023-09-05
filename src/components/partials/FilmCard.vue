@@ -14,15 +14,24 @@
 
 
     <div class="card">
-      <img :src="'http://image.tmdb.org/t/p/w342' + card.poster_path" alt="error">
+      <img
+      v-if="card.poster_path"
+      :src="'http://image.tmdb.org/t/p/w342' + card.poster_path"
+      alt="error"
+    >
+    <img
+      v-else
+      src="../../assets/placeholder_image1.png" 
+      alt="Placeholder Image"
+    >
 
       <div class="film-description">
 
         <h3>{{ card.title || card.name }}</h3>
         <h4>{{ card.original_name || card.original_title }}</h4>
-        <div class="flags-container">
-          <img :src="`/flags/language-${lang}.svg`" :alt="lang">
-        </div>
+          <div class="flags-container">
+            <img :src="`/flags/language-${lang}.svg`" :alt="lang">
+          </div>
         <span v-for="star in rating" :key="star"><i class="fa-solid fa-star"></i></span>
         <span v-for="starEmpty in (5-rating)" :key="starEmpty"><i class="fa-regular fa-star"></i></span>
 
@@ -36,21 +45,30 @@
 @use '../../scss/partials/vars.scss' as*;
 
 .card{
-  width: 200px;
+  width: calc(100%/5);
   border: 1px solid black;
-  height: 500px;
-  margin: 10px;
-  background-color: white;
-
+  height: 400px;
+  background-color: black;
+  position: relative;
+  padding: 1px;
     img{
-      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
   }
    .film-description{
-    padding: 10px;
-    background-color: white;
-    overflow: scroll;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    opacity: 0;
+    &:hover {
+      transition: opacity 0.3s ease-in-out;
+      opacity: 1;
+      overflow: scroll;
+      background-color: rgba(0, 0, 0, 0.697);
+      color: white;
+    }
     .fa-solid.fa-star{
       color: gold;
 

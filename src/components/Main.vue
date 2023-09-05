@@ -39,14 +39,16 @@ import { store }      from '../data/store';
 <style lang="scss" scoped>
 @use '../scss/partials/vars.scss' as*;
 .background{
-  background-color: white;
+  color: white;
+  background-color: black;
   text-align: center;
   .container{
+    color: black;
+    min-width: 800px;
     text-align: left;
     min-height: 100vh;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
   }
 
 }
