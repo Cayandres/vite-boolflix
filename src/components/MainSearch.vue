@@ -16,7 +16,9 @@ export default {
 
 <template>
    <div class="container-search">
+    <div class="logo">
       <img :src="`logo-boolflix.png`" :alt="lang">
+    </div>
       <div class="s-container">
         <input class="searchInput" 
         type="text" 
@@ -41,8 +43,24 @@ export default {
   height: 100vh;
   flex-direction: column;
   img{
-    height: 20%;
+    height: 100%;
     padding: 10px;
+  }
+}
+.logo {
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: scaleUp 0.5s ease-out alternate;
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
   }
 }
 
@@ -54,7 +72,6 @@ export default {
   width: 100%;
   padding: 15px;
   border-radius: 10px;
-  margin-left: auto;
   border: none;
   height: 50px;
 }
