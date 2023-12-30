@@ -4,18 +4,31 @@ export default {
   name:'MainSearch',
   data(){
     return{
-      store
+      store,
+      selected: '',
     }
   },
   props:{
       lang : String,
       query : String,
-    }
+    },
+
+    methods: {
+    handleSearch() {
+      if (this.selected === 'movie') {
+        this.$emit('startSearchMovie'); 
+      } else if (this.selected === 'tv') {
+        this.$emit('startSearchTv'); 
+      } else if (this.selected === 'both') {
+        this.$emit('startSearch');
+      }
+    },
+  },
 }
 </script>
 
 <template>
-   <div class="container-search">
+  <div class="container-search">
     <div class="logo">
       <img :src="`logo-boolflix.png`" :alt="lang">
     </div>
@@ -26,11 +39,17 @@ export default {
         v-model="store.apiParams.query"
         @keydown.enter="$emit('startSearch')">
   
-        <div class="searchButton" @click.stop="$emit('startSearch')">Cerca</div>     
+        <div class="searchButton" @click.stop="handleSearch">Cerca</div>
+        <select v-model="selected">
+           <option disabled value="">Please select one</option>
+           <option value="tv">Serie Tv</option>
+           <option value="movie">Film</option>
+           <option value="both">entrambi</option>
+        </select>
       </div>
       
 
- </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

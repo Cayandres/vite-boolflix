@@ -42,16 +42,17 @@ import { store }         from './data/store'
   
 <div class="appWrapper">
   
-  <MainSearch  v-if="!store.movie.length" @startSearch="getApi('movie'), getApi('tv')"/>
+  <MainSearch  v-if="(!(store.tv.length || store.movie.length))"  
+  @startSearchTv="getApi('tv')"
+  @startSearchMovie="getApi('movie')" 
+  @startSearch="getApi('movie'), getApi('tv')"/>
   
-  <HeaderSearch v-if="store.movie.length > 0"
+  <HeaderSearch v-if="store.movie.length > 0 || store.tv.length > 0"
   @startSearch="getApi('movie'), getApi('tv')" 
    />
   <Main v-if="store.movie.length > 0" title="Film" type="movie"/>
   <Main v-if="store.tv.length > 0" title="Serie TV" type="tv"/>
-  
-  <!-- <Footer /> -->
-  
+
 </div>
 
 </template>
